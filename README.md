@@ -30,17 +30,19 @@ Luego de descargar el archivo mover al siguiente directorio `models/detection_fe
 
 ## 2. Configurar los Entornos Virtuales en Conda
 Por temas de versiones de Python considerar lo siguiente:
-- Para localizar los campos del formulario (sign_1, sign_2, date) y los valores de la fecha (date_day, date_month y date_year) se ha usado YOLO en la versión de Python 3.6. Por lo que debemos de crear un entorno virtual:
+- Para localizar los campos del formulario (sign_1, sign_2, date) y los valores de la fecha (date_day, date_month y date_year) se ha usado YOLO en la versión de Python 3.6.13 . Por lo que debemos de crear un entorno virtual:
 ```
-conda create -n deteccionobj python==3.6
+conda create -n deteccionobj python==3.6.13
 conda activate deteccionobj
 pip install -r requirements_1.txt
+conda deactivate
 ```
 - Para identificar sign_1 ,sign_2 y date , así como el reconocimiento de dígitos de date_day, date_month y  date_year, se han usado los modelos de VGG, CNN y SVM en la version de Python 3.8.5. Por lo que debemos de crear otro entorno virtual.
 ```
 conda create -n entel python==3.8.5
 conda activate entel
 pip install -r requirements_2.txt
+conda deactivate
 ```
 
 ## 3. Ejecutar los siguientes comandos
@@ -48,8 +50,8 @@ pip install -r requirements_2.txt
 ```
 cd src
 conda activate entel
-python get_transform.py -re ../data/image_test -rs ../data/image_test_transform/ --equalize
 python get_transform.py -re ../data/image_train -rs ../data/image_train_transform/ --equalize
+python get_transform.py -re ../data/image_test -rs ../data/image_test_transform/ --equalize
 ```
 ### 3.2 Localizar los campos de sign_1, sign_2 y date
 ```
@@ -82,3 +84,23 @@ python detection_fecha.py --model_def ../models/detection_fecha/yolov3-custom.cf
 ```
 python detection_fecha.py --model_def ../models/detection_fecha/yolov3-custom.cfg  --checkpoint_model ../models/detection_fecha/yolov3_ckpt_62.pth  --class_path ../models/detection_fecha/classes.names   --weights_path ../models/detection_fecha/yolov3_ckpt_62.pth --conf_thres 0.85  --image_folder ../data/output/image_test_transform/fecha/upscaling  
 ```
+### 3.5 Resultados del preprocesamiento
+Todos los resultados producto de la ejecución de los anteriores comandos, se encuentran en el directorio  `data/output` (imágenes de los campos localizados de sign_1, sign_2 y date, asi como los imágenes de los dígitos del date_day, date_month y date_year del campo date) 
+
+### 4. Prediccion de los resultados.
+Antes de ejecutar estos notebooks activar el entorno *entel*
+```
+conda activate entel
+```
+Para tener el resultado final requerido por el evento, se tienen que ejecutar estos notebooks.
+* `training_vgg_identificacion_fecha_firmas.ipynb`
+Este notebook se encarga del entrenamiento para identificar si  existen o no sign_1, sign_2 y date.
+* `training_cnn_reconocimiento_dia_mes.ipynb`
+Este notebook se encarga del entrenamiento para identificar los digitos del date_day y date_month del campo date.
+* `training_svm_clasificacion_annio.ipynb`
+Este notebook se encarga del entrenamiento para identificar si el año esta escrito como "2021" o "21".
+* `prediccion_final.ipynb`
+Este notebook se encarga de cargar los modelos entrenados para la prediccion final.
+
+### 4.1 Resultado final
+El resultado final luego de ejecutar los modelos entrenados se encuentra en el directorio  `results`
