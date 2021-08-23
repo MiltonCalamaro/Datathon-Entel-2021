@@ -18,6 +18,8 @@ Para este reto solo se pide determinar la ubicación de 3 campos del formato(2 f
 
 # Instruciones para ejecutar el algoritmo
 ## 1. Descargar las fuentes externas de los modelos entrenados con YOLO
+Se ha subido a Google Drive los modelos de YOLO para la localización de objetos, debido a que son archivos pesados excediendo el límite permitido por GitHub.
+
 Descargar el modelo yolov3_ckpt_46.pth para la localización de sign_1, sign_2 y date
 * https://drive.google.com/file/d/16V5qfut6wQqUrF2j_Xjrp805D_ZFKmWn/view?usp=sharing
 
