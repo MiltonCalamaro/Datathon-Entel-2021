@@ -24,7 +24,7 @@ Descargar el modelo yolov3_ckpt_46.pth para la localización de sign_1, sign_2 y
 Luego de descargar el archivo mover al siguiente directorio `models/detection_objects`
 
 Descargar el modelo yolov3_ckpt_62.pth para la localizacion de date_day, date_month y date_year del campo date
-* https://drive.google.com/file/d/16V5qfut6wQqUrF2j_Xjrp805D_ZFKmWn/view?usp=sharing
+* https://drive.google.com/file/d/1Vjg-0Qc1Di6CL4uJdh-TSbA893btJn5M/view?usp=sharing
 
 Luego de descargar el archivo mover al siguiente directorio `models/detection_fecha`
 

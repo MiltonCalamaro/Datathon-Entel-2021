@@ -1,0 +1,4 @@
+.ipynb_checkpoints/
+__pycache__/
+models/detection_fecha/yolov3_ckpt_62.pth
+models/detection_objects/yolov3_ckpt_46.pth

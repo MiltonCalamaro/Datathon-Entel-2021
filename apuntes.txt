@@ -1,0 +1,24 @@
+conda activate entel
+python .\get_transform.py -re ../data/image_test -rs ../data/image_test_transform/ --equalize
+python .\get_transform.py -re ../data/image_train -rs ../data/image_train_transform/ --equalize
+
+conda activate deteccionobj
+python detection_objects.py --model_def ../models/detection_objects/yolov3-custom.cfg  --checkpoint_model ../models/detection_objects/yolov3_ckpt_46.pth  --class_path ../models/detection_objects/classes.names   --weights_path ../models/detection_objects/yolov3_ckpt_46.pth --conf_thres 0.85  --image_folder ../data/image_train_transform --webcam
+python detection_objects.py --model_def ../models/detection_objects/yolov3-custom.cfg  --checkpoint_model ../models/detection_objects/yolov3_ckpt_46.pth  --class_path ../models/detection_objects/classes.names   --weights_path ../models/detection_objects/yolov3_ckpt_46.pth --conf_thres 0.85  --image_folder ../data/image_test_transform --webcam
+
+#python .\aclarar.py -re ..\data\output\image_train_transform\fecha -rs ..\data\output\image_train_transform\fecha
+#python .\aclarar.py -re ..\data\output\image_train_transform\firma1 -rs ..\data\output\image_train_transform\firma1
+#python .\aclarar.py -re ..\data\output\image_train_transform\firma2 -rs ..\data\output\image_train_transform\firma2
+#python .\aclarar.py -re ..\data\output\image_test_transform\fecha -rs ..\data\output\image_test_transform\fecha
+#python .\aclarar.py -re ..\data\output\image_test_transform\firma1 -rs ..\data\output\image_test_transform\firma1
+#python .\aclarar.py -re ..\data\output\image_test_transform\firma2 -rs ..\data\output\image_test_transform\firma2
+
+conda activate entel
+python upscaling.py -p ../data/output/image_train_transform/fecha/
+python upscaling.py -p ../data/output/image_test_transform/fecha/  
+
+conda activate deteccionobj
+python detection_fecha.py --model_def ../models/detection_fecha/yolov3-custom.cfg  --checkpoint_model ../models/detection_fecha/yolov3_ckpt_62.pth  --class_path ../models/detection_fecha/classes.names   --weights_path ../models/detection_fecha/yolov3_ckpt_62.pth --conf_thres 0.85  --image_folder ../data/output/image_train_transform/fecha/upscaling  --webcam
+python detection_fecha.py --model_def ../models/detection_fecha/yolov3-custom.cfg  --checkpoint_model ../models/detection_fecha/yolov3_ckpt_62.pth  --class_path ../models/detection_fecha/classes.names   --weights_path ../models/detection_fecha/yolov3_ckpt_62.pth --conf_thres 0.85  --image_folder ../data/output/image_test_transform/fecha/upscaling  --webcam
+
+python .\etiquetado_digitos.py
